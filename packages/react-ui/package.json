@@ -1,0 +1,19 @@
+{
+  "name": "react-ui",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "react": "^18.2.0",
+    "typescript": "^4.7.4"
+  }
+}
