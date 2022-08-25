@@ -10,14 +10,14 @@
   "dependencies": {
     "next": "latest",
     "next-transpile-modules": "^9.0.0",
-    "react": "18.1.0",
+    "react": "^18.2.0",
     "react-dom": "18.1.0",
     "react-ui": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "17.0.35",
-    "@types/react": "18.0.9",
-    "@types/react-dom": "18.0.5",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
     "autoprefixer": "^10.4.7",
     "eslint-config-custom": "workspace:*",
     "postcss": "^8.4.14",
