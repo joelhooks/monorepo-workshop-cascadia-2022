@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.1",
+    "prettier": "^2.7.1",
     "turbo": "^1.4.3"
   }
 }
