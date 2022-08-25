@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import {Hello} from 'react-ui'
+import { Hello } from 'react-ui'
 
 const Home: NextPage = () => {
   return (
