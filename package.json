@@ -15,5 +15,10 @@
   "devDependencies": {
     "@manypkg/cli": "^0.19.1",
     "turbo": "^1.4.3"
+  },
+  "manypkg": {
+    "ignoredRules": [
+      "INTERNAL_MISMATCH"
+    ]
   }
 }
