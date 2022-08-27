@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepare": "simple-git-hooks",
     "build": "turbo run build",
     "clean": "rm -rf node_modules && pnpm -r exec -- rm -rf .turbo node_modules .next dist",
     "test": "turbo run test",
@@ -21,6 +22,16 @@
   "dependencies": {
     "@manypkg/cli": "^0.19.1",
     "prettier": "^2.7.1",
+    "simple-git-hooks": "^2.8.0",
     "turbo": "^1.4.3"
+  },
+  "nano-staged": {
+    "*.{ts,tsx,md,mdx,js,jsx}": "prettier --write"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "./node_modules/.bin/nano-staged"
+  },
+  "devDependencies": {
+    "nano-staged": "^0.8.0"
   }
 }
