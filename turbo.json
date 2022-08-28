@@ -5,7 +5,7 @@
       "dependsOn": ["^build"],
       "outputs": [".next/**", "dist/**"]
     },
-    "build#marketing-site": {
+    "marketing-site#build": {
       "dependsOn": ["^build", "$VERCEL_URL", "$PORT", "$NODE_ENV"],
       "outputs": [".next/**", "dist/**"]
     },
@@ -21,11 +21,12 @@
     },
     "test:e2e": {
       "cache": false,
-      "dependsOn": []
+      "outputs": []
     },
-    "test:e2e#landing-page": {
+    "landing-page#test:e2e": {
       "cache": false,
-      "dependsOn": ["build"]
+      "dependsOn": ["build"],
+      "outputs": []
     }
   }
 }
