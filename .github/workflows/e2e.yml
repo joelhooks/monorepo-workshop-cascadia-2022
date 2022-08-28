@@ -67,7 +67,7 @@ jobs:
           restore-keys: cache-playwright-
       - name: Install playwright deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
-        run: pnpm playwright install --with-deps
+        run: pnpm dlx playwright install --with-deps
       - run: pnpm -- turbo run test:e2e
 
       - name: Upload test results
