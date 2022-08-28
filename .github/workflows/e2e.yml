@@ -25,11 +25,35 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }} # So we can test on forks
           fetch-depth: 2
       - run: echo 'NODE_OPTIONS="--max_old_space_size=4096"' >> $GITHUB_ENV
+      
+      - uses: pnpm/action-setup@v2.0.1
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+          
       - name: Use Node 16.x
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: "pnpm"
+          cache: 'pnpm'
+          
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        run: |
+          echo "::set-output name=pnpm_cache_dir::$(pnpm store path)"
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.pnpm_cache_dir }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
       - name: Cache playwright binaries
         uses: actions/cache@v2
@@ -41,7 +65,6 @@ jobs:
             ${{ github.workspace }}/node_modules/playwright
           key: cache-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: cache-playwright-
-      - run: pnpm install --frozen-lockfile
       - name: Install playwright deps
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: pnpm playwright install --with-deps
