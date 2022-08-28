@@ -1,0 +1,55 @@
+name: E2E test
+on:
+  pull_request_target: # So we can test on forks
+    branches:
+      - main
+    paths:
+      - apps/**
+      - packages/**
+jobs:
+  e2e:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+
+    env:
+      NEXT_PUBLIC_WEBAPP_URL: http://localhost:3000
+      NEXT_PUBLIC_WEBSITE_URL: http://localhost:3000
+      NEXT_PUBLIC_IS_E2E: 1
+      TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+      TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }} # So we can test on forks
+          fetch-depth: 2
+      - run: echo 'NODE_OPTIONS="--max_old_space_size=4096"' >> $GITHUB_ENV
+      - name: Use Node 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
+
+      - name: Cache playwright binaries
+        uses: actions/cache@v2
+        id: playwright-cache
+        with:
+          path: |
+            ~/Library/Caches/ms-playwright
+            ~/.cache/ms-playwright
+            ${{ github.workspace }}/node_modules/playwright
+          key: cache-playwright-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: cache-playwright-
+      - run: pnpm install --frozen-lockfile
+      - name: Install playwright deps
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: pnpm playwright install --with-deps
+      - run: pnpm -- turbo run test:e2e
+
+      - name: Upload test results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test-results
