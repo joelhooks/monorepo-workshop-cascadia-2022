@@ -1,11 +1,12 @@
 import * as React from 'react'
-import * as ReactDOM from 'react-dom'
 import { Hello } from '../hello'
+import { createRoot } from 'react-dom/client'
 
 describe('CounterButton', () => {
   it('renders without crashing', () => {
     const div = document.createElement('div')
-    ReactDOM.render(<Hello />, div)
-    ReactDOM.unmountComponentAtNode(div)
+    const root = createRoot(div)
+    root.render(<Hello />)
+    root.unmount()
   })
 })
