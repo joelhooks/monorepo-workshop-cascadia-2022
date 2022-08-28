@@ -18,6 +18,10 @@
     "test": {
       "outputs": [],
       "dependsOn": []
+    },
+    "test:e2e": {
+      "cache": false,
+      "dependsOn": ["build"]
     }
   }
 }
