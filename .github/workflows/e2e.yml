@@ -25,18 +25,19 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }} # So we can test on forks
           fetch-depth: 2
       - run: echo 'NODE_OPTIONS="--max_old_space_size=4096"' >> $GITHUB_ENV
-      - name: Use Node 16.x
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16.x
-          cache: "pnpm"
-
       - uses: pnpm/action-setup@v2.0.1
         name: Install pnpm
         id: pnpm-install
         with:
           version: 7
           run_install: false
+      - name: Use Node 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: "pnpm"
+
+
       - name: Get pnpm store directory
         id: pnpm-cache
         run: |
