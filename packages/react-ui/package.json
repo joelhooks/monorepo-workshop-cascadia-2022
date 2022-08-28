@@ -5,7 +5,8 @@
   "main": "./index.tsx",
   "types": "./index.tsx",
   "scripts": {
-    "lint": "TIMING=1 eslint **/*.ts* --fix"
+    "lint": "TIMING=1 eslint **/*.ts* --fix",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,9 @@
     "eslint-config-custom": "workspace:*",
     "react": "^18.2.0",
     "tsconfig": "workspace:*",
+    "jest": "^28.1.3",
+    "jest-presets": "workspace:*",
     "typescript": "4.7.2"
+
   }
 }
