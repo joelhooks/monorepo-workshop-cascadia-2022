@@ -21,6 +21,10 @@
     },
     "test:e2e": {
       "cache": false,
+      "dependsOn": []
+    },
+    "test:e2e#landing-page": {
+      "cache": false,
       "dependsOn": ["build"]
     }
   }
